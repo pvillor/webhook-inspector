@@ -1,6 +1,7 @@
-import { Copy } from "lucide-react";
-import { IconButton } from "./ui/icon-button";
-import { WebhooksList } from "./webhooks-list";
+import { Copy } from 'lucide-react'
+import { IconButton } from './ui/icon-button'
+import { WebhooksList } from './webhooks-list'
+import { Suspense } from 'react'
 
 export function Sidebar() {
   return (
@@ -16,11 +17,13 @@ export function Sidebar() {
         <div className="flex-1 min-w-0 flex items-center gap-1 text-xs font-mono text-zinc-300">
           <span className="truncate">http://localhost:3333/api/capture</span>
         </div>
-        
+
         <IconButton icon={<Copy className="size-4" />} />
       </div>
 
-      <WebhooksList />
+      <Suspense fallback={<p>Loading...</p>}>
+        <WebhooksList />
+      </Suspense>
     </div>
   )
 }

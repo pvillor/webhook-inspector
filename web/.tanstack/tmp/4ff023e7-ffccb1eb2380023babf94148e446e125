@@ -9,48 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ItalianCoffeeRouteImport } from './routes/italian-coffee'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WebhooksIdRouteImport } from './routes/webhooks.$id'
 
+const ItalianCoffeeRoute = ItalianCoffeeRouteImport.update({
+  id: '/italian-coffee',
+  path: '/italian-coffee',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WebhooksIdRoute = WebhooksIdRouteImport.update({
-  id: '/webhooks/$id',
-  path: '/webhooks/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/webhooks/$id': typeof WebhooksIdRoute
+  '/italian-coffee': typeof ItalianCoffeeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/webhooks/$id': typeof WebhooksIdRoute
+  '/italian-coffee': typeof ItalianCoffeeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/webhooks/$id': typeof WebhooksIdRoute
+  '/italian-coffee': typeof ItalianCoffeeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/webhooks/$id'
+  fullPaths: '/' | '/italian-coffee'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/webhooks/$id'
-  id: '__root__' | '/' | '/webhooks/$id'
+  to: '/' | '/italian-coffee'
+  id: '__root__' | '/' | '/italian-coffee'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  WebhooksIdRoute: typeof WebhooksIdRoute
+  ItalianCoffeeRoute: typeof ItalianCoffeeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/italian-coffee': {
+      id: '/italian-coffee'
+      path: '/italian-coffee'
+      fullPath: '/italian-coffee'
+      preLoaderRoute: typeof ItalianCoffeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -58,19 +65,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/webhooks/$id': {
-      id: '/webhooks/$id'
-      path: '/webhooks/$id'
-      fullPath: '/webhooks/$id'
-      preLoaderRoute: typeof WebhooksIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  WebhooksIdRoute: WebhooksIdRoute,
+  ItalianCoffeeRoute: ItalianCoffeeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
