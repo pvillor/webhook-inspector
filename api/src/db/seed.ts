@@ -43,12 +43,12 @@ function generateStripeWebhook() {
         id: eventType.includes('charge')
           ? `ch_${faker.string.alphanumeric(24)}`
           : eventType.includes('payment_intent')
-          ? `pi_${faker.string.alphanumeric(24)}`
-          : eventType.includes('invoice')
-          ? `in_${faker.string.alphanumeric(24)}`
-          : eventType.includes('customer')
-          ? `cus_${faker.string.alphanumeric(14)}`
-          : `cs_${faker.string.alphanumeric(24)}`,
+            ? `pi_${faker.string.alphanumeric(24)}`
+            : eventType.includes('invoice')
+              ? `in_${faker.string.alphanumeric(24)}`
+              : eventType.includes('customer')
+                ? `cus_${faker.string.alphanumeric(14)}`
+                : `cs_${faker.string.alphanumeric(24)}`,
         object: eventType.split('.')[0],
         amount: amount,
         currency: currency,
@@ -65,7 +65,7 @@ function generateStripeWebhook() {
     'content-type': 'application/json',
     'stripe-signature': `t=${Math.floor(Date.now() / 1000)},v1=${faker.string.alphanumeric(64)}`,
     'user-agent': 'Stripe/1.0 (+https://stripe.com/docs/webhooks)',
-    'accept': '*/*',
+    accept: '*/*',
     'accept-encoding': 'gzip, deflate',
     'x-stripe-client-user-agent': JSON.stringify({
       bindings_version: '10.0.0',
